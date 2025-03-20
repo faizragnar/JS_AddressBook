@@ -168,7 +168,6 @@ class AddressBookManager {
             });
         }
     }
-    
 
     displayAllBooks() {
         for (const [bookName, contacts] of Object.entries(this.addressBooks)) {
