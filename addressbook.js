@@ -179,16 +179,4 @@ class AddressBookManager {
     
 
 
-    const manager = new AddressBookManager();
-
-    manager.createAddressBook("Family");
-    manager.addContactToBook("Family", new Contact("John", "Doe", "123 Main St", "Los Angeles", "California", "900001", "9876543210", "john.doe@example.com"));
-    manager.addContactToBook("Family", new Contact("Alice", "Johnson", "456 Elm St", "Seattle", "Washington", "981301", "8765432109", "alice.j@example.com"));
-    manager.addContactToBook("Family", new Contact("Bob", "Smith", "789 Oak St", "Los Angeles", "California", "900002", "7654321098", "bob.smith@example.com"));
-    
-    console.log("\n🔍 Searching for contacts in 'Los Angeles':");
-    manager.searchByCityOrState("Family", "Los Angeles");
-    
-    console.log("\n🔍 Searching for contacts in 'Washington':");
-    manager.searchByCityOrState("Family", "Washington");
     
