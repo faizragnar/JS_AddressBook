@@ -141,17 +141,7 @@ class AddressBookManager {
         return Object.values(this.addressBooks).reduce((total, contacts) => total + contacts.length, 0);
     }
     
-    searchByCityOrState(bookName, location) {
-        if (!this.addressBooks[bookName]) {
-            throw new Error(`Address Book '${bookName}' does not exist.`);
-        }
-    
-        const results = this.addressBooks[bookName].filter(
-            contact => contact.city === location || contact.state === location
-        );
-    
-        this.displayContacts(results);
-    }
+
     displayContacts(contacts) {
         if (contacts.length === 0) {
             console.log(`No contacts found.`);
