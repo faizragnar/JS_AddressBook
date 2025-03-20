@@ -140,18 +140,55 @@ class AddressBookManager {
     countTotalContacts() {
         return Object.values(this.addressBooks).reduce((total, contacts) => total + contacts.length, 0);
     }
-
-
-    displayAllBooks() {
-        for (const [bookName, contacts] of Object.entries(this.addressBooks)) {
-            console.log(`Address Book: ${bookName}`);
+    
+    searchByCityOrState(bookName, location) {
+        if (!this.addressBooks[bookName]) {
+            throw new Error(`Address Book '${bookName}' does not exist.`);
+        }
+    
+        const results = this.addressBooks[bookName].filter(
+            contact => contact.city === location || contact.state === location
+        );
+    
+        this.displayContacts(results);
+    }
+    displayContacts(contacts) {
+        if (contacts.length === 0) {
+            console.log(`No contacts found.`);
+        } else {
             contacts.forEach(contact => {
                 console.log(
-                    contact.getFullName(),',', contact.phoneNumber, ',', contact.email, ',', contact.city, ',', contact.state, ',', contact.zip
+                    contact.getFullName(),
+                    ',', contact.phoneNumber,
+                    ',', contact.email,
+                    ',', contact.city,
+                    ',', contact.state,
+                    ',', contact.zip
                 );
             });
         }
     }
-    
-}
 
+    displayAllBooks() {
+        for (const [bookName, contacts] of Object.entries(this.addressBooks)) {
+            console.log(`\n📖 Address Book: ${bookName}`);
+            this.displayContacts(contacts);
+        }
+    }
+    }
+    
+
+
+    const manager = new AddressBookManager();
+
+    manager.createAddressBook("Family");
+    manager.addContactToBook("Family", new Contact("John", "Doe", "123 Main St", "Los Angeles", "California", "900001", "9876543210", "john.doe@example.com"));
+    manager.addContactToBook("Family", new Contact("Alice", "Johnson", "456 Elm St", "Seattle", "Washington", "981301", "8765432109", "alice.j@example.com"));
+    manager.addContactToBook("Family", new Contact("Bob", "Smith", "789 Oak St", "Los Angeles", "California", "900002", "7654321098", "bob.smith@example.com"));
+    
+    console.log("\n🔍 Searching for contacts in 'Los Angeles':");
+    manager.searchByCityOrState("Family", "Los Angeles");
+    
+    console.log("\n🔍 Searching for contacts in 'Washington':");
+    manager.searchByCityOrState("Family", "Washington");
+    
